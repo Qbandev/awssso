@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+"""System module."""
+import os
+import re
+import subprocess
+import sys
+from configparser import ConfigParser
+from pathlib import Path
+import inquirer
+
+AWS_CONFIG_PATH = str(Path.home()) + "/.aws/config"
+AWS_DEFAULT_REGION = 'us-east-1'
+
+
+def main():
+    """Function to set the profile and run the aws sts command"""
+    _set_profile()
+    _sts_for_auth()
+
+
+def _select_profile():
+    config = _read_config(AWS_CONFIG_PATH)
+
+    profiles = []
+    for section in config.sections():
+        profiles.append(re.sub(r"^profile ", "", str(section)))
+    profiles.sort()
+
+    questions = [
+        inquirer.List(
+            'name',
+            message='Please select an AWS config profile',
+            choices=profiles
+        ),
+    ]
+    answer = inquirer.prompt(questions)
+    return answer['name'] if answer else sys.exit(1)
+
+
+def _set_profile():
+    profile = _select_profile()
+    os.environ['AWS_PROFILE'] = profile
+    print(f"Using profile: {profile}")
+
+
+def _sts_for_auth():
+    subprocess.run(['aws', 'sts', 'get-caller-identity'],
+                   stderr=sys.stderr,
+                   stdout=sys.stdout,
+                   check=True)
+
+
+def _read_config(path):
+    config = ConfigParser()
+    config.read(path)
+    return config
+
+if __name__ == "__main__":
+    main()
