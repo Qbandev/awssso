@@ -8,7 +8,7 @@ _awssso_ Python tool to get short-term credential tokens for CLI/Boto3 operation
 
 We use several accounts/roles and we need to switch between accounts/roles, grab temporary session credentials and make sure they're the ones used.
 
-This script is a quick work around to to quickly switch between accounts/roles.
+This script is a quick work around to quickly switch between accounts/roles.
 
 ## How it works
 
