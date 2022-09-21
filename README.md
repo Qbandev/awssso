@@ -12,7 +12,7 @@ This script is a quick work around to quickly switch between accounts/roles.
 
 ## How it works
 
-Uses AWS CLI configuration files to give you an interactive command line interface to switch between the profile you want to use. It will then trigger a SSO login session wit [aws-vault](https://github.com/99designs/aws-vault) tool and generate a temporary session token for the selected profile to be secure stored. Finally you can export the profile to the environment variables to use it.
+Uses AWS CLI configuration files to give you an interactive command line interface to switch between the profile you want to use. It will then trigger a SSO login session with [aws-vault](https://github.com/99designs/aws-vault) tool and generate a temporary session token for the selected profile to be secure stored. Finally you can export the profile to the environment variables to use it.
 
 ## Prerequisites
 
