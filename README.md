@@ -8,17 +8,15 @@ _awssso_ Python tool to get short-term credential tokens for CLI/Boto3 operation
 
 We use several accounts/roles and we need to switch between accounts/roles, grab temporary session credentials and make sure they're the ones used.
 
-This script is a quick work around to have something functional to quickly switch between accounts/roles.
+This script is a quick work around to to quickly switch between accounts/roles.
 
 ## How it works
 
-Uses AWS CLI configuration files to trigger a SSO login session wit [aws-vault](https://github.com/99designs/aws-vault) tool and gives you an interactive command line interface to switch between the profile you want to use. It will then generate a temporary session token for the selected profile and export it to the environment variables.
+Uses AWS CLI configuration files to give you an interactive command line interface to switch between the profile you want to use. It will then trigger a SSO login session wit [aws-vault](https://github.com/99designs/aws-vault) tool and generate a temporary session token for the selected profile to be secure stored. Finally you can export the profile to the environment variables to use it.
 
 ## Prerequisites
 
-- python3
-
-- pip3
+- [python3](https://www.python.org/downloads/) and [pip](https://docs.python.org/3/installing/index.html)(already installed with python3)
 
 - [aws cli v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 
@@ -31,6 +29,8 @@ Uses AWS CLI configuration files to trigger a SSO login session wit [aws-vault](
 ```
 
 ## Setting up
+
+- [python3](https://www.python.org/downloads/) and [pip](https://docs.python.org/3/installing/index.html)(already installed with python3)
 
 - Install [aws cli v2](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
 
@@ -66,6 +66,8 @@ credential_process=aws-vault exec sso-prod-r --json
 
 - Make the `awssso` executable and copy it somewhere in your `%PATH%`.
 
+- Install the dependencies with `pip3 install -r requirements.txt`
+
 You should be good to go :wink:.
 
 ## Usage
@@ -76,7 +78,7 @@ You can run `awssso`.
   awssso
 ```
 
-Select the profile from a list (**the ones whitouth sso in the name**):
+Select the profile from a list (_the ones whitouth sso in the name_):
 
 ```bash
 $ awssso
@@ -88,7 +90,11 @@ $ awssso
    sso-prod-r
 ```
 
-Once the profile is selected, the script will create valid SSO credentials that will be stored it in aws-vault and set the profile in your environment.
+Once the profile is selected, the script will create valid SSO credentials that will be stored in aws-vault and you can set the profile in your environment.
+
+```bash
+ export AWS_PROFILE=prod
+```
 
 ## Example
 
@@ -108,8 +114,10 @@ Using profile: prod
     "Account": "798987340964",
     "Arn": "arn:aws:sts::798987340964:assumed-role/PowerUserAccess/Qbandev@users.noreply.github.com"
 }
+
+$ export AWS_PROFILE=prod
 ```
 
 ## Inspiration
 
-This script is inspired by Neil 'Jed' Jedrzejewski' [aws-sso-credentials](https://github.com/NeilJed/aws-sso-credentials)repository.
+This script is inspired by Neil 'Jed' Jedrzejewski' [aws-sso-credentials](https://github.com/NeilJed/aws-sso-credentials) repository.
