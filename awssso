@@ -41,6 +41,7 @@ def _set_profile():
     profile = _select_profile()
     os.environ['AWS_PROFILE'] = profile
     print(f"Using profile: {profile}")
+    print(f"Run the command: export AWS_PROFILE={profile}")
 
 
 def _sts_for_auth():
@@ -54,6 +55,7 @@ def _read_config(path):
     config = ConfigParser()
     config.read(path)
     return config
+
 
 if __name__ == "__main__":
     main()
