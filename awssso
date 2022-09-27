@@ -29,7 +29,7 @@ def _select_profile():
     questions = [
         inquirer.List(
             'name',
-            message='Please select an AWS config profile',
+            message='Please select an AWS profile',
             choices=profiles
         ),
     ]
